@@ -3,8 +3,7 @@ require 'pry'
 # CircularBuffer class:
 # uses a single, fixed-size buffer as if it were connected end-to-end
 class CircularBuffer
-  attr_accessor :buffer
-  attr_reader :buffer_limit
+  attr_reader :buffer_limit, :buffer
 
   # Buffer is empty
   class BufferEmptyException < StandardError
