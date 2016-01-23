@@ -24,21 +24,21 @@ class CircularBuffer
 
   def read
     fail BufferEmptyException if @buffer.empty?
-    @buffer.shift unless @buffer.empty?
+    buffer.shift unless @buffer.empty?
   end
 
   def write(value)
     if too_big?
       fail BufferFullException
     else
-      @buffer << value unless value.nil?
+      buffer << value unless value.nil?
     end
   end
 
   def write!(value)
     # rubocop:disable GuardClause
     unless value.nil?
-      @buffer.shift if too_big?
+      buffer.shift if too_big?
       write value
     end
     # rubocop:enable GuardClause
