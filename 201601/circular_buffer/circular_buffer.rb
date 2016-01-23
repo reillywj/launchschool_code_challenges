@@ -23,8 +23,8 @@ class CircularBuffer
   end
 
   def read
-    fail BufferEmptyException if @buffer.empty?
-    buffer.shift unless @buffer.empty?
+    fail BufferEmptyException if buffer.empty?
+    buffer.shift unless buffer.empty?
   end
 
   def write(value)
