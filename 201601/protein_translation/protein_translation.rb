@@ -28,11 +28,7 @@ class Translation
   end
 
   def self.of_rna(strand)
-    arr = []
-    until strand.length <= 0
-      codon = of_codon strand.slice!(0, 3)
-      codon == 'STOP' ? break : arr << codon
-    end
-    arr
+    strand.scan(/.../).take_while{|codon| of_codon(codon) != 'STOP'}
+                      .map{|codon| of_codon codon}
   end
 end
