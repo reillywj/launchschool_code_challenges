@@ -23,15 +23,15 @@ class Meetup
   end
   
   def second(weekday)
-    search(weekday) { Date.new(year, month, starter(1)) } 
+    search(weekday) { Date.new(year, month, starter(2)) } 
   end
   
   def third(weekday)
-    search(weekday) { Date.new(year, month, starter(2)) }
+    search(weekday) { Date.new(year, month, starter(3)) }
   end
   
   def fourth(weekday)
-    search(weekday) { Date.new(year, month, starter(3)) }
+    search(weekday) { Date.new(year, month, starter(4)) }
   end
   
   def last(weekday)
@@ -56,6 +56,6 @@ class Meetup
   end
   
   def starter(num)
-    7 * num + 1
+    7 * (num - 1) + 1
   end
 end
