@@ -35,8 +35,7 @@ class Meetup
   end
   
   def last(weekday)
-    base_date = Date.new(year, month, 1)
-    starter_date = base_date.next_month - 1
+    starter_date = Date.new(year, month, -1)
     until Kernel.eval("starter_date." + weekday.to_s + "?") do
       starter_date -= 1
     end
