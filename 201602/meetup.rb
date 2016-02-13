@@ -15,7 +15,7 @@ class Meetup
   private
   
   def teenth(weekday)
-    search(weekday) { Date.new(year, month, 13) }
+    search(weekday, 13)
   end
   
   def first(weekday)
@@ -23,15 +23,15 @@ class Meetup
   end
   
   def second(weekday)
-    search(weekday) { Date.new(year, month, starter(2)) } 
+    search(weekday, start_day(2))
   end
   
   def third(weekday)
-    search(weekday) { Date.new(year, month, starter(3)) }
+    search(weekday, start_day(3))
   end
   
   def fourth(weekday)
-    search(weekday) { Date.new(year, month, starter(4)) }
+    search(weekday, start_day(4))
   end
   
   def last(weekday)
@@ -43,19 +43,15 @@ class Meetup
     starter_date
   end
   
-  def search(weekday)
-    starter_date = if block_given?
-                     yield
-                   else
-                     Date.new(year, month, 1)
-                   end
+  def search(weekday, start_day = 1)
+    starter_date = Date.new(year, month, start_day)
     until Kernel.eval("starter_date." + weekday.to_s + "?") do
       starter_date += 1
     end
     starter_date
   end
   
-  def starter(num)
-    7 * (num - 1) + 1
+  def start_day(week_num)
+    7 * (week_num - 1) + 1
   end
 end
