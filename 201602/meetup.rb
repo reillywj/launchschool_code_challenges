@@ -35,13 +35,9 @@ class Meetup
   end
   
   def last(weekday)
-    starter_date = Date.new(year, month, -1)
-    until Kernel.eval("starter_date." + weekday.to_s + "?") do
-      starter_date -= 1
-    end
-    starter_date
+    search(weekday, -7)
   end
-  
+
   def search(weekday, start_day = 1)
     starter_date = Date.new(year, month, start_day)
     until Kernel.eval("starter_date." + weekday.to_s + "?") do
