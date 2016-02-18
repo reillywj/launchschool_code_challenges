@@ -33,7 +33,7 @@ class PhoneNumber
     case num.size
     when 10 then num
     when 11
-      num[0].include?('1') ? num[1..10] : DEFAULT_NUMBER
+      num.start_with?('1') ? num[1..10] : DEFAULT_NUMBER
     else DEFAULT_NUMBER
     end
   end
