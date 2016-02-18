@@ -28,12 +28,11 @@ class PhoneNumber
   def decipher(phone_number)
     return DEFAULT_NUMBER if letters? phone_number
 
-    num = phone_number.split('').select { |char| char =~ /[0-9]/ }.join
+    num = phone_number.split('').select { |char| char =~ /\d/ }.join
 
     case num.size
     when 10 then num
-    when 11
-      num.start_with?('1') ? num[1..10] : DEFAULT_NUMBER
+    when 11 then num.start_with?('1') ? num[1..10] : DEFAULT_NUMBER
     else DEFAULT_NUMBER
     end
   end
