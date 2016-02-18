@@ -28,7 +28,7 @@ class PhoneNumber
   def decipher(phone_number)
     return DEFAULT_NUMBER if letters? phone_number
 
-    num = phone_number.split('').select { |char| char =~ /\d/ }.join
+    num = phone_number.gsub(/[^\d]/, '')
 
     case num.size
     when 10 then num
