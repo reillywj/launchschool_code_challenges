@@ -6,26 +6,23 @@ class Clock
   end
 
   def to_s
-    "%02d:%02d" % [hours, minutes]
+    '%02d:%02d' % [hours, minutes]
   end
 
-  def +(minutes)
-    @minutes += minutes % 60
-    @hours += minutes / 60
+  def +(other_minutes)
+    @minutes += other_minutes % 60
+    @hours += other_minutes / 60
     @hours = hours % 24
     self
   end
 
-  def -(mins)
-    @minutes -= mins
-    until minutes >= 0 do
+  def -(other_minutes)
+    @minutes -= other_minutes
+    until minutes >= 0
       @minutes += 60
       @hours -= 1
     end
-    
-    until hours >= 0 do
-      @hours += 24
-    end
+    @hours += 24 until hours >= 0
     self
   end
 
