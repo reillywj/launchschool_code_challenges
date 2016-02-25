@@ -57,4 +57,14 @@ class ClockTest < Minitest::Test
     clock = Clock.at(0, 30) - 60
     assert_equal '23:30', clock.to_s
   end
+  
+  def test_add_more_than_a_day
+    clock = Clock.at(0, 30) + (24*60*4)
+    assert_equal Clock.at(0, 30), clock
+  end
+  
+  def test_subtract_more_than_a_day
+    clock = Clock.at(0, 30) - (24*60*4)
+    assert_equal Clock.at(0, 30), clock
+  end
 end
