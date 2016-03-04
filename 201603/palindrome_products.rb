@@ -1,6 +1,7 @@
 # Started at 8:50PM
 # Completed 9:29PM
-require 'pry'
+
+# Factorable is used to mixin common methods in the palindromic classes
 module Factorable
   def min_factor
     @limits[:min_factor] || 1
@@ -11,6 +12,7 @@ module Factorable
   end
 end
 
+# Palindromes finds all palindromic numbers between two given factors
 class Palindromes
   include Factorable
 
@@ -20,8 +22,8 @@ class Palindromes
 
   def generate
     @numbers = []
-    for i in (min_factor..max_factor)
-      for j in (min_factor..max_factor)
+    (min_factor..max_factor).each do |i|
+      (min_factor..max_factor).each do |j|
         @numbers << PalindromicNumber.new(i * j, @limits) if palindromic?(i, j)
       end
     end
@@ -40,10 +42,12 @@ class Palindromes
 
   def palindromic?(num1, num2)
     value = (num1 * num2).to_s
-    value == value.reverse
+    value.eql? value.reverse
   end
 end
 
+# Class to store a single Palindromic number
+# it has its own methods that can be called on it
 class PalindromicNumber
   include Factorable
 
@@ -60,8 +64,8 @@ class PalindromicNumber
 
   def factors
     factors = []
-    for i in (min_factor..max_factor)
-      for j in (min_factor..max_factor)
+    (min_factor..max_factor).each do |i|
+      (min_factor..max_factor).each do |j|
         factors << [i, j].sort if i * j == value
       end
     end
