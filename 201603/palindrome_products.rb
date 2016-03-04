@@ -1,5 +1,5 @@
 # Started at 8:50PM
-# Completed 
+# Completed 9:29PM
 require 'pry'
 module Factorable
   def min_factor
