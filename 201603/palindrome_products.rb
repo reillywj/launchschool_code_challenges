@@ -1,8 +1,8 @@
 # Started at 8:50PM
 # Completed 9:29PM
 
-# Factorable is used to mixin common methods in the palindromic classes
-module Factorable
+# Limitable is used to mixin common methods in the palindromic classes
+module Limitable
   def min_factor
     @limits[:min_factor] || 1
   end
@@ -14,10 +14,10 @@ end
 
 # Palindromes finds all palindromic numbers between two given factors
 class Palindromes
-  include Factorable
+  include Limitable
 
-  def initialize(arg)
-    @limits = arg
+  def initialize(factor_limits)
+    @limits = factor_limits
   end
 
   def generate
@@ -49,7 +49,7 @@ end
 # Class to store a single Palindromic number
 # it has its own methods that can be called on it
 class PalindromicNumber
-  include Factorable
+  include Limitable
 
   attr_reader :value
 
