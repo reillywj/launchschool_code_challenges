@@ -23,7 +23,7 @@ class Palindromes
   def generate
     @numbers = []
     (min_factor..max_factor).each do |i|
-      (min_factor..max_factor).each do |j|
+      (i..max_factor).each do |j|
         @numbers << PalindromicNumber.new(i * j, @limits) if palindromic?(i, j)
       end
     end
@@ -65,7 +65,7 @@ class PalindromicNumber
   def factors
     factors = []
     (min_factor..max_factor).each do |i|
-      (min_factor..max_factor).each do |j|
+      (i..max_factor).each do |j|
         factors << [i, j].sort if i * j == value
       end
     end
