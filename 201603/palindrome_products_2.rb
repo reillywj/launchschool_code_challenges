@@ -42,7 +42,7 @@ class Palindromes
               when 1
                 # puts "#{value}: #{first_factor}; #{second_factor}"
                 @largest = PalindromicNumber.new(value, [factors])
-              end
+              end 
             else
               @largest = PalindromicNumber.new(value, [factors])
             end
