@@ -1,5 +1,4 @@
-require 'pry'
-
+# Finds the nth prime number
 class Prime
   def self.nth(number)
     raise ArgumentError if number <= 0
