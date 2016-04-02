@@ -1,3 +1,4 @@
+# Matrix is a class that is used to find saddle points within a given matrix.
 class Matrix
   attr_reader :rows
   def initialize(matrix)
@@ -7,7 +8,7 @@ class Matrix
       @rows[index] = row.split(' ').map(&:to_i)
     end
   end
-  
+
   def columns
     @columns || find_columns
   end
@@ -53,7 +54,7 @@ class Matrix
   def smallest_in_column?(column, row_number)
     smallest = true
     value = column[row_number]
-    column.each do |other_value, row_num|
+    column.each_with_index do |other_value, row_num|
       smallest &&= (value <= other_value) unless row_number == row_num
     end
     smallest
