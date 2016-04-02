@@ -1,4 +1,5 @@
 require 'prime'
+require 'minitest/autorun'
 
 ERROR_MESSAGE = <<-MSG.freeze
 Using Ruby's Prime class is probably the best way to do this in a
@@ -18,7 +19,7 @@ class Integer
   end
 end
 
-require_relative 'nth_prime'
+require_relative 'nth'
 
 class TestPrimes < Minitest::Test
   def test_first
@@ -26,22 +27,22 @@ class TestPrimes < Minitest::Test
   end
 
   def test_second
-    skip
+    # skip
     assert_equal 3, Prime.nth(2)
   end
 
   def test_sixth_prime
-    skip
+    # skip
     assert_equal 13, Prime.nth(6)
   end
 
   def test_big_prime
-    skip
+    # skip
     assert_equal 104_743, Prime.nth(10_001)
   end
 
   def test_weird_case
-    skip
+    # skip
     assert_raises ArgumentError do
       Prime.nth(0)
     end
