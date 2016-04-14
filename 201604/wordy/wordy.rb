@@ -32,7 +32,6 @@ class WordProblem
       raise ArgumentError unless OPS.values.include? operator
 
       number = components.shift.to_i
-      # value = eval("#{value}#{operator}#{number}")
       value = value.send(operator, number)
     end
     value
