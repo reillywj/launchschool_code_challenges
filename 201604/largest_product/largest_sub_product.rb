@@ -86,7 +86,7 @@ module SubProductFinder
     end
 
     def to_s
-      "Digits: #{number}\nBreakdown:\n#{show_breakdown}Product: #{product}"
+      "Digits: #{number}\nDigit Breakdown:\n#{show_breakdown}Product: #{product}"
     end
   end
 end
@@ -109,6 +109,13 @@ title 'Bottom 10'
 puts problem.show_breakdown(10)
 # title 'All'
 # puts problem.show_breakdown #Shows all possible subset products
+
+# Largest Subset Solution
+title 'Largest Subset'
+most_digits = problem.largest_distance_between # default arg = 0
+biggest_solution = problem.find_largest_product_subset(most_digits)
+puts "Most digits between 0s: #{most_digits}"
+puts biggest_solution
 
 # Use binding.pry to play around if you'd like.
 # binding.pry

@@ -20,11 +20,18 @@ module Breakdown
 
     proc_breakdown = proc { |pair| output << "[#{pair.first}: #{'*' * pair[-1]}]\n" }
     arr_breakdown = breakdown.to_a
-    case num
-    when -arr_breakdown.size..-1
-      arr_breakdown[num, num.abs].reverse_each { |pair| proc_breakdown.call(pair) }
+    adj_num = if num && num.abs > arr_breakdown.size
+      (num < 0 ? -1 : 1) * arr_breakdown.size
     else
-      arr_breakdown[0, num || breakdown.size].each { |pair| proc_breakdown.call(pair) }
+      num
+    end
+      
+
+    case adj_num
+    when -arr_breakdown.size..-1
+      arr_breakdown[adj_num, adj_num.abs].reverse_each { |pair| proc_breakdown.call(pair) }
+    else
+      arr_breakdown[0, adj_num || breakdown.size].each { |pair| proc_breakdown.call(pair) }
     end
 
     output
