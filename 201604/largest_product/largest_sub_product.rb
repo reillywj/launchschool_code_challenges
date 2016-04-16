@@ -1,6 +1,6 @@
 require 'pry'
 
-class Product
+class SubProductFinder
   attr_reader :number
   def initialize(filename)
     @number = IO.readlines(filename).join('').gsub("\n", '')
@@ -88,7 +88,7 @@ class Subset
   end
 end
 
-problem = Product.new('number.txt')
+problem = SubProductFinder.new('number.txt')
 solution = problem.find_largest_product_subset(13)
 puts "Problem: Find largest subset of a thousand digit number in number.txt file."
 puts solution # 5576689664895 => 23514624000
