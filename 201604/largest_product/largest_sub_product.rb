@@ -52,7 +52,7 @@ module SubProductFinder
 
     def product
       return @product if @product
-      return 0 if @breakdown['0']
+      return @product = 0 if @breakdown['0']
 
       @product = @breakdown.reduce(1) do |memo, (number, count)|
         memo * number**count
