@@ -4,6 +4,7 @@
 # What is the value of this product?
 
 # Breakdown is common code for finding the simple counts of values within an array or collection.
+require 'pry'
 module Breakdown
   attr_reader :breakdown
 
@@ -49,7 +50,7 @@ class SubProductFinder
     @number = IO.readlines(filename).join('').delete("\n")
   end
 
-  def find_largest_product_subset(n = 13)
+  def find_largest_product_subset(n)
     find_subsets(n) unless @subsets
     @subsets.sort[-1]
   end
@@ -61,7 +62,7 @@ class SubProductFinder
 
   private
 
-  def find_subsets(n = 13)
+  def find_subsets(n)
     return @subsets if @subsets
 
     @subsets = []
@@ -88,19 +89,18 @@ class Subset
   def product
     return @product if @product
     return 0 if @breakdown['0']
-    value = 1
-    @breakdown.each do |number, count|
-      value *= (number**count)
+
+    @product = @breakdown.reduce(1) do |memo, (number, count)|
+      memo * number ** count
     end
-    @product = value
   end
 
   def <=>(other)
-    product <=> other.product
+    product <=> other.product # Comparing for sorting
   end
 
   def to_s
-    "Digits: #{number}\nBreakdown: #{breakdown}\nProduct: #{product}"
+    "Digits: #{number}\nBreakdown:\n#{show_breakdown}Product: #{product}"
   end
 end
 

@@ -33,3 +33,24 @@ class Prime
     prime
   end
 end
+
+
+# class Prime
+#   def self.nth(number)
+#     raise ArgumentError if number <= 0
+
+#     primes = [2]
+#     current_number = 3
+#     until primes.size == number
+#       is_prime = true
+#       primes.each do |prime|
+#         is_prime &&= (current_number % prime) != 0
+#         break unless is_prime
+#         break if prime > Math.sqrt(current_number)
+#       end
+#       primes << current_number if is_prime
+#       current_number += 2
+#     end
+#     primes.last
+#   end
+# end
