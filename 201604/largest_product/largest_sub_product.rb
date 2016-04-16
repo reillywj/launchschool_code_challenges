@@ -3,18 +3,19 @@
 # Find the thirteen(13) adjacent digits in the 1000-digit number that have the greatest product.
 # What is the value of this product?
 
+require 'pry'
 require_relative 'breakdown'
 
-# SubProductFinder: Finds the sub products
+# SubProductFinder: Finds the sub products of a Number
 module SubProductFinder
-  # Number holds holds info on the main number
-  # It also keeps track of all subset numbers
+  # Main Number
   class Number
     attr_reader :number
 
     include Breakdown
 
     def initialize(number)
+      raise ArgumentError unless Integer(number)
       @number = number.to_s
     end
 
@@ -91,3 +92,4 @@ title 'Bottom 10'
 puts problem.show_breakdown(10)
 # title 'All'
 # puts problem.show_breakdown #Shows all possible subset products
+binding.pry
