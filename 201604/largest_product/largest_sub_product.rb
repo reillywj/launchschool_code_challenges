@@ -46,8 +46,8 @@ class SubProductFinder
 
   include Breakdown
 
-  def initialize(filename)
-    @number = IO.readlines(filename).join('').delete("\n")
+  def initialize(number)
+    @number = number.to_s
   end
 
   def find_largest_product_subset(n)
@@ -110,11 +110,12 @@ def title(words)
   puts words.center(50, '-')
 end
 
-problem = SubProductFinder.new('number.txt')
+problem = SubProductFinder.new(IO.readlines('number.txt').join('').delete("\n"))
 solution = problem.find_largest_product_subset(13)
 puts "\nProblem: Find largest subset of a thousand digit number in number.txt file."
 title 'Solution'
 puts solution # 5576689664895 => 23514624000
+
 # Metrics
 title 'Top 10'
 puts problem.show_breakdown(-10)
