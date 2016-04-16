@@ -7,6 +7,8 @@ require_relative 'breakdown'
 
 # SubProductFinder: Finds the sub products
 module SubProductFinder
+  # Number holds holds info on the main number
+  # It also keeps track of all subset numbers
   class Number
     attr_reader :number
 
@@ -17,23 +19,19 @@ module SubProductFinder
     end
 
     def find_largest_product_subset(n)
-      find_subsets(n) unless @subsets
+      find_subsets(n) unless @subsets && @subsets.first.size == n
       @subsets.sort[-1]
-    end
-
-    def breakdown
-      return @breakdown if @breakdown
-      find_breakdown(@subsets.map(&:product))
     end
 
     private
 
     def find_subsets(n)
-      return @subsets if @subsets
+      return @subsets if @subsets && @subsets.first.size == n
       @subsets = []
       (@number.size - n + 1).times do |index|
         @subsets << Subset.new(@number[index, n])
       end
+      find_breakdown(@subsets.map(&:product))
     end
   end
 
@@ -58,6 +56,10 @@ module SubProductFinder
       @product = @breakdown.reduce(1) do |memo, (number, count)|
         memo * number ** count
       end
+    end
+
+    def size
+      @number.size
     end
 
     def <=>(other)
