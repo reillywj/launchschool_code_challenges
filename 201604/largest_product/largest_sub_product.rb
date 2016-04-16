@@ -3,114 +3,79 @@
 # Find the thirteen(13) adjacent digits in the 1000-digit number that have the greatest product.
 # What is the value of this product?
 
-# Breakdown is common code for finding the simple counts of values within an array or collection.
-require 'pry'
-module Breakdown
-  attr_reader :breakdown
-
-  def find_breakdown(arr = nil)
-    @breakdown = {}
-    breakdown_proc = proc do |val|
-      @breakdown[val] = 0 unless @breakdown[val]
-      @breakdown[val] += 1
-    end
-
-    if block_given?
-      yield.each { |val| breakdown_proc.call(val) }
-    else
-      arr.each { |val| breakdown_proc.call(val) }
-    end
-
-    @breakdown = @breakdown.to_a.sort { |a, b| a.first <=> b.first }.to_h
-  end
-
-  def show_breakdown(num = nil)
-    output = ''
-
-    proc_breakdown = proc { |pair| output << "[#{pair.first}: #{'*' * pair[-1]}]\n" }
-    arr_breakdown = breakdown.to_a
-    case num
-    when -arr_breakdown.size..-1
-      arr_breakdown[num, num.abs].reverse_each { |pair| proc_breakdown.call(pair) }
-    else
-      arr_breakdown[0, num || breakdown.size].each { |pair| proc_breakdown.call(pair) }
-    end
-
-    output
-  end
-end
+require_relative 'breakdown'
 
 # SubProductFinder: Finds the sub products
-class SubProductFinder
-  attr_reader :number
+module SubProductFinder
+  class Number
+    attr_reader :number
 
-  include Breakdown
+    include Breakdown
 
-  def initialize(number)
-    @number = number.to_s
+    def initialize(number)
+      @number = number.to_s
+    end
+
+    def find_largest_product_subset(n)
+      find_subsets(n) unless @subsets
+      @subsets.sort[-1]
+    end
+
+    def breakdown
+      return @breakdown if @breakdown
+      find_breakdown(@subsets.map(&:product))
+    end
+
+    private
+
+    def find_subsets(n)
+      return @subsets if @subsets
+      @subsets = []
+      (@number.size - n + 1).times do |index|
+        @subsets << Subset.new(@number[index, n])
+      end
+    end
   end
 
-  def find_largest_product_subset(n)
-    find_subsets(n) unless @subsets
-    @subsets.sort[-1]
-  end
+  # Subset takes a subset of digits and parses them into digit statistics
+  # Also finds and stores the product of these digits
+  class Subset
+    attr_reader :number
 
-  def breakdown
-    return @breakdown if @breakdown
-    find_breakdown(@subsets.map(&:product))
-  end
+    include Breakdown
 
-  private
+    def initialize(subset)
+      @number = subset
+      find_breakdown do
+        subset.split('').map(&:to_i)
+      end
+    end
 
-  def find_subsets(n)
-    return @subsets if @subsets
+    def product
+      return @product if @product
+      return 0 if @breakdown['0']
 
-    @subsets = []
-    (@number.size - n + 1).times do |index|
-      @subsets << Subset.new(@number[index, n])
+      @product = @breakdown.reduce(1) do |memo, (number, count)|
+        memo * number ** count
+      end
+    end
+
+    def <=>(other)
+      product <=> other.product # Comparing for sorting
+    end
+
+    def to_s
+      "Digits: #{number}\nBreakdown:\n#{show_breakdown}Product: #{product}"
     end
   end
 end
-
-# Subset takes a subset of digits and parses them into digit statistics
-# Also finds and stores the product of these digits
-class Subset
-  attr_reader :number
-
-  include Breakdown
-
-  def initialize(subset)
-    @number = subset
-    find_breakdown do
-      subset.split('').map(&:to_i)
-    end
-  end
-
-  def product
-    return @product if @product
-    return 0 if @breakdown['0']
-
-    @product = @breakdown.reduce(1) do |memo, (number, count)|
-      memo * number ** count
-    end
-  end
-
-  def <=>(other)
-    product <=> other.product # Comparing for sorting
-  end
-
-  def to_s
-    "Digits: #{number}\nBreakdown:\n#{show_breakdown}Product: #{product}"
-  end
-end
-
 # Running the Solution
 
-def title(words)
-  puts words.center(50, '-')
+def title(words, chars = 50)
+  puts words.center(chars, '-')
 end
 
-problem = SubProductFinder.new(IO.readlines('number.txt').join('').delete("\n"))
+problem = SubProductFinder::Number.new(IO.readlines('number.txt').join('').delete("\n"))
 solution = problem.find_largest_product_subset(13)
 puts "\nProblem: Find largest subset of a thousand digit number in number.txt file."
 title 'Solution'
