@@ -91,4 +91,3 @@ title 'Bottom 10'
 puts problem.show_breakdown(10)
 # title 'All'
 # puts problem.show_breakdown #Shows all possible subset products
-binding.pry
