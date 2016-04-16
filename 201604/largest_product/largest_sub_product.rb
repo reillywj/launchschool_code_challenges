@@ -55,7 +55,7 @@ module SubProductFinder
       return 0 if @breakdown['0']
 
       @product = @breakdown.reduce(1) do |memo, (number, count)|
-        memo * number ** count
+        memo * number**count
       end
     end
 
