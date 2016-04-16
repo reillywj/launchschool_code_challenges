@@ -3,6 +3,8 @@
 # Find the thirteen(13) adjacent digits in the 1000-digit number that have the greatest product.
 # What is the value of this product?
 
+# Use pry gem if you want to play around.
+# require 'pry'
 require_relative 'breakdown'
 
 # SubProductFinder: Finds the sub products of a Number
@@ -21,6 +23,22 @@ module SubProductFinder
     def find_largest_product_subset(n)
       find_subsets(n) unless @subsets && @subsets.first.size == n
       @subsets[-1]
+    end
+
+    def largest_distance_between(num = 0)
+      largest = 0
+      current_distance = 0
+      check_distance = proc { largest = current_distance if largest < current_distance }
+      @number.split('').each do |digit|
+        if digit == num.to_s
+          check_distance.call
+          current_distance = 0
+        else
+          current_distance += 1
+        end
+      end
+      check_distance.call
+      largest
     end
 
     private
@@ -91,3 +109,6 @@ title 'Bottom 10'
 puts problem.show_breakdown(10)
 # title 'All'
 # puts problem.show_breakdown #Shows all possible subset products
+
+# Use binding.pry to play around if you'd like.
+# binding.pry
