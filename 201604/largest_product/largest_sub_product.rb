@@ -13,11 +13,13 @@ module Breakdown
       @breakdown[val] = 0 unless @breakdown[val]
       @breakdown[val] += 1
     end
+
     if block_given?
       yield.each { |val| breakdown_proc.call(val) }
     else
       arr.each { |val| breakdown_proc.call(val) }
     end
+
     @breakdown = @breakdown.to_a.sort { |a, b| a.first <=> b.first }.to_h
   end
 
