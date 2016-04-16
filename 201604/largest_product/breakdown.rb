@@ -1,5 +1,4 @@
 # Breakdown is common code for finding the simple counts of values within an array or collection.
-require 'pry'
 module Breakdown
   attr_reader :breakdown
 
@@ -10,11 +9,8 @@ module Breakdown
       @breakdown[val] += 1
     end
 
-    if block_given?
-      yield.each { |val| breakdown_proc.call(val) }
-    else
-      arr.each { |val| breakdown_proc.call(val) }
-    end
+    yield.each { |val| breakdown_proc.call(val) } if block_given?
+    arr.each { |val| breakdown_proc.call(val) } unless block_given?
 
     @breakdown = @breakdown.to_a.sort { |a, b| a.first <=> b.first }.to_h
   end
