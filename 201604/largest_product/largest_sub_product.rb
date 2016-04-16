@@ -3,7 +3,6 @@
 # Find the thirteen(13) adjacent digits in the 1000-digit number that have the greatest product.
 # What is the value of this product?
 
-require 'pry'
 require_relative 'breakdown'
 
 # SubProductFinder: Finds the sub products of a Number
