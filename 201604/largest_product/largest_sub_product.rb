@@ -20,7 +20,7 @@ module SubProductFinder
 
     def find_largest_product_subset(n)
       find_subsets(n) unless @subsets && @subsets.first.size == n
-      @subsets.sort[-1]
+      @subsets[-1]
     end
 
     private
@@ -31,6 +31,7 @@ module SubProductFinder
       (@number.size - n + 1).times do |index|
         @subsets << Subset.new(@number[index, n])
       end
+      @subsets.sort!
       find_breakdown(@subsets.map(&:product))
     end
   end
