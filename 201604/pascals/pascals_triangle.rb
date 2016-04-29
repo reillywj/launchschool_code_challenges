@@ -1,5 +1,3 @@
-require 'pry'
-
 # Finds Pascals Triangle
 class Triangle
   attr_reader :rows
@@ -16,18 +14,6 @@ class Triangle
   end
 
   private
-
-  # def build
-  #   (1..@levels).to_a.each do |level|
-  #     case level
-  #     when 1
-  #       @rows = [[1]]
-  #     else
-  #       find_row(level)
-  #     end
-  #   end
-  #   @rows
-  # end
 
   def build(count)
     prior_row = @rows[count - 1]
