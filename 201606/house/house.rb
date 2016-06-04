@@ -7,19 +7,20 @@ class House
       else
         recital += "\n"
         (index + 1).times do |number|
-          row = -1 - index + number
-          if row == -1
+          row = piece_row index, number
+          case row
+          when -1
             recital += " #{pieces[row][0]}"
           else
-            if number == 0
-              recital += this_is(pieces[row][0])
-            else
-              recital += " #{pieces[row][0]}"
-            end
+            recital +=  case number
+                        when 0
+                          this_is(pieces[row][0])
+                        else
+                          " #{pieces[row][0]}"
+                        end
             recital += "\n"
-            recital += "#{pieces[row][1]}"
+            recital += pieces[row][1].to_s
           end
-
         end
       end
       recital += ".\n"
@@ -27,10 +28,14 @@ class House
     recital
   end
 
-  private
+  private_class_method
 
   def self.this_is(phrase)
     "This is #{phrase}"
+  end
+
+  def self.piece_row(index, increment)
+    -1 - index + increment
   end
 
   def self.pieces
