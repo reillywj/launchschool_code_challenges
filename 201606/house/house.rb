@@ -2,7 +2,7 @@ class House
   def self.recite
     recital = ''
     pieces.size.times do |index|
-      recital = first_line if index == 0
+      recital = first_line -1 if index == 0
       recital += stanza index unless index == 0
       recital += ".\n"
     end
@@ -15,8 +15,8 @@ class House
     "This is #{phrase}"
   end
 
-  def self.first_line
-    this_is pieces.last.first
+  def self.first_line(row)
+    this_is pieces[row].first
   end
 
   def self.stanza(index)
@@ -27,9 +27,9 @@ class House
       when -1
         stanza += " #{pieces[row][0]}"
       else
-        stanza +=  case number
+        stanza +=   case number
                     when 0
-                      this_is(pieces[row][0])
+                      first_line row
                     else
                       " #{pieces[row][0]}"
                     end
