@@ -7,23 +7,25 @@ class Robot
   attr_reader :name
 
   def initialize
-    generate_name
+    generate_name(2, 3)
   end
 
   def reset
     old_name = name
-    generate_name
+    generate_name(@letters, @numbers)
     self.class.names.delete old_name
   end
 
   private
 
-  def generate_name
+  def generate_name(letters, numbers)
+    @letters ||= letters
+    @numbers ||= numbers
     new_name = ''
-    2.times { new_name << LETTERS[Kernel.rand(26)] }
-    3.times { new_name << Kernel.rand(10).to_s }
+    letters.times { new_name << LETTERS[Kernel.rand(26)] }
+    numbers.times { new_name << Kernel.rand(10).to_s }
     if self.class.names.include? new_name
-      generate_name
+      generate_name(letters, numbers)
     else
       assign new_name
     end
