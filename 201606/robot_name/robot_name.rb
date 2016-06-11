@@ -11,8 +11,9 @@ class Robot
   end
 
   def reset
-    self.class.names.delete name
+    old_name = name
     generate_name
+    self.class.names.delete old_name
   end
 
   private
