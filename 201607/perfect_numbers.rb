@@ -3,11 +3,10 @@
 class PerfectNumber
   def self.classify(num)
     raise 'Invalid number' if num <= 0
+
     case sum_of_factors(num)
-    when num
-      'perfect'
-    when 0...num
-      'deficient'
+    when num      then 'perfect'
+    when 0...num  then 'deficient'
     else
       'abundant'
     end
@@ -24,6 +23,6 @@ class PerfectNumber
   end
 
   def self.sum_of_factors(num)
-    divisors(num).inject(0, &:+) - num
+    divisors(num).inject(&:+) - num
   end
 end
