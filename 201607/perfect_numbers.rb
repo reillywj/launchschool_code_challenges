@@ -1,6 +1,6 @@
 class PerfectNumber
   def self.classify(num)
-    raise RuntimeError if num < 0
+    raise "Invalid number" if num <= 0
     case sum_of_factors(num)
     when num
       "perfect"
@@ -20,7 +20,7 @@ class PerfectNumber
       (divs << div) << (num / div) if num % div == 0
     end
 
-    return divs.sort
+    return divs
   end
 
   def self.sum_of_factors(num)
