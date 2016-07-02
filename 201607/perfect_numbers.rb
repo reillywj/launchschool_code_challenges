@@ -1,17 +1,17 @@
+# PerfectNumber LaunchSchool Coding Challenge
+# Completed: July 2, 2016
 class PerfectNumber
   def self.classify(num)
-    raise "Invalid number" if num <= 0
+    raise 'Invalid number' if num <= 0
     case sum_of_factors(num)
     when num
-      "perfect"
+      'perfect'
     when 0...num
-      "deficient"
+      'deficient'
     else
-      "abundant"
+      'abundant'
     end
   end
-
-  private
 
   def self.divisors(num)
     divs = []
@@ -20,7 +20,7 @@ class PerfectNumber
       (divs << div) << (num / div) if num % div == 0
     end
 
-    return divs
+    divs
   end
 
   def self.sum_of_factors(num)
