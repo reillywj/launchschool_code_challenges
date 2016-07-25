@@ -1,6 +1,6 @@
 # OCR Number Challenge
 class OCR
-  def initialize text
+  def initialize(text)
     digest text
     digitize
   end
@@ -11,12 +11,12 @@ class OCR
   end
 
   # Private methods
-  def digest text
+  def digest(text)
     @rows = text.split("\n\n")
     @rows.map! { |row| row.split("\n") }
     @rows.each do |row|
-      row.map! do |text|
-        correct_characters?(text) ? text : text + ' ' * (3 - text.length % 3)
+      row.map! do |str|
+        correct_characters?(str) ? str : str + ' ' * (3 - str.length % 3)
       end
     end
   end
@@ -28,8 +28,8 @@ class OCR
     end
   end
 
-  def correct_characters? text
-    text.length % 3 == 0 && text.length > 0
+  def correct_characters?(text)
+    text.length % 3 == 0 && !text.empty?
   end
 
   def read_text_by_row
@@ -42,19 +42,25 @@ class OCR
     end
   end
 
-  def digit_range digit_index
+  def digit_range(digit_index)
     start = digit_index * 3
     ending = start + 2
     start..ending
   end
 
   def translate_digits
-    @digit_rows.map { |digit_row| digit_row.reduce ('') { |number, next_digit| number + next_digit.to_s }}.join(',')
+    @digit_rows.map do |digit_row|
+      digit_row.reduce('') do |number, next_digit|
+        number + next_digit.to_s
+      end
+    end.join(',')
   end
 
-  private :read_text_by_row, :translate_digits, :digit_range, :correct_characters?, :digest, :digitize
+  private :read_text_by_row, :translate_digits, :digit_range, \
+          :correct_characters?, :digest, :digitize
 end
 
+# Holds OCR information for a digit and translates to numerical values.
 class Digit
   OCR_TRANSLATION = {
     [' _ ', '| |', '|_|'] => 0,
@@ -67,13 +73,13 @@ class Digit
     [' _ ', '  |', '  |'] => 7,
     [' _ ', '|_|', '|_|'] => 8,
     [' _ ', '|_|', ' _|'] => 9
-  }
+  }.freeze
 
   def initialize
     @rows = Array.new(3, '')
   end
 
-  def add row_index, row
+  def add(row_index, row)
     @rows[row_index] = row
   end
 
