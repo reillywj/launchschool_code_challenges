@@ -21,12 +21,11 @@ class Triplet
   def self.where(args)
     min_factor = args[:min_factor] || 1
     max_factor = args[:max_factor]
-    range = min_factor..max_factor
     triplets = []
-    range.each do |a|
+    (min_factor..max_factor).each do |a|
       (a..max_factor).each do |b|
         (b..max_factor).each do |c|
-          triplet = self.new(a, b, c)
+          triplet = new(a, b, c)
           verification = triplet.pythagorean?
           verification &&= triplet.sum == args[:sum] if args[:sum]
 
