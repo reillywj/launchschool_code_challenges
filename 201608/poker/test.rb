@@ -3,6 +3,7 @@ require_relative 'poker'
 
 class PokerTest < Minitest::Test
   def test_one_hand
+    # skip
     high_of_jack = %w(4S 5S 7H 8D JC)
     game = Poker.new([high_of_jack])
     assert_equal [high_of_jack], game.best_hand
@@ -25,7 +26,7 @@ class PokerTest < Minitest::Test
   end
 
   def test_two_pair
-    skip
+    # skip
     pair_of_2 = %w(4S 2H 6S 2D JH)
     pair_of_4 = %w(2S 4H 6S 4D JH)
     game = Poker.new([pair_of_2, pair_of_4])
@@ -33,15 +34,31 @@ class PokerTest < Minitest::Test
   end
 
   def test_one_pair_vs_double_pair
-    skip
+    # skip
     pair_of_8 = %w(2S 8H 6S 8D JH)
     double_pair = %w(4S 5H 4S 8D 5H)
     game = Poker.new([pair_of_8, double_pair])
     assert_equal [double_pair], game.best_hand
   end
 
+  def test_another_one_pair_vs_double_pair
+    # skip
+    pair_of_a = %w(5S 8H 6S AD AH)
+    double_pair = %w(2S 2H 3S 3D 5H)
+    game = Poker.new([pair_of_a, double_pair])
+    assert_equal [double_pair], game.best_hand
+  end
+
+  def test_one_pair_vs_even_pair
+    # skip
+    pair_of_A = %w(2S 8H QS AD AH)
+    another_pair_of_A = %w(4S 5H KS AC AS)
+    game = Poker.new([pair_of_A, another_pair_of_A])
+    assert_equal [another_pair_of_A], game.best_hand
+  end
+
   def test_two_double_pair
-    skip
+    # skip
     double_pair_2_and_8 = %w(2S 8H 2S 8D JH)
     double_pair_4_and_5 = %w(4S 5H 4S 8D 5H)
     game = Poker.new([double_pair_2_and_8, double_pair_4_and_5])
@@ -49,7 +66,7 @@ class PokerTest < Minitest::Test
   end
 
   def test_double_pair_vs_three
-    skip
+    # skip
     double_pair_2_and_8 = %w(2S 8H 2S 8D JH)
     three_of_4 = %w(4S 5H 4S 8D 4H)
     game = Poker.new([double_pair_2_and_8, three_of_4])
@@ -57,7 +74,7 @@ class PokerTest < Minitest::Test
   end
 
   def test_two_three
-    skip
+    # skip
     three_of_2 = %w(2S 2H 2S 8D JH)
     three_of_1 = %w(4S AH AS 8D AH)
     game = Poker.new([three_of_2, three_of_1])
@@ -113,7 +130,7 @@ class PokerTest < Minitest::Test
   end
 
   def test_two_fulls
-    skip
+    # skip
     full_of_4_by_9 = %w(4H 4S 4D 9S 9D)
     full_of_5_by_8 = %w(5H 5S 5D 8S 8D)
     game = Poker.new([full_of_4_by_9, full_of_5_by_8])
@@ -129,7 +146,7 @@ class PokerTest < Minitest::Test
   end
 
   def test_two_square
-    skip
+    # skip
     square_of_2 = %w(2S 2H 2S 8D 2H)
     square_of_5 = %w(4S 5H 5S 5D 5H)
     game = Poker.new([square_of_2, square_of_5])
@@ -153,7 +170,7 @@ class PokerTest < Minitest::Test
   end
 
   def test_three_hand_with_tie
-    skip
+    # skip
     spade_straight_to_9 = %w(9S 8S 7S 6S 5S)
     diamond_straight_to_9 = %w(9D 8D 7D 6D 5D)
     three_of_4 = %w(4D 4S 4H QS KS)
